@@ -8,3 +8,9 @@ app.get("/",function(request,response){
 app.listen(10000, function () {
   console.log("Started application on port %d", 10000)
 });
+
+const { MongoClient } = require('mongodb');
+
+async function main(){
+  
+}
