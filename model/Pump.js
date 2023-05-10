@@ -7,7 +7,12 @@ const pumpSchema = new Schema({
   gestore: String,
   bandiera: String,
   tipoImpianto: String,
-  nomeImpianto: 
+  nomeImpianto: String,
+  indirizzo: String,
+  Comune: String,
+  Provincia: String,
+  Latitudine: String,
+  Longitudine: String
 });  
 
 module.exports = User = mongoose.model("user", userSchema);
