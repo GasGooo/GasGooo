@@ -1,4 +1,6 @@
-const db_uri = require('./secret.js');
+require('dotenv').config()
+
+//const db_uri = 
 const express = require("express")
 const User = require("./model/User");
 const { MongoClient } = require('mongodb');
@@ -13,13 +15,12 @@ app.listen(10000, function () {
   console.log("Started application on port %d", 10000)
 });
 
-const uri = db_uri; 
 
 main().catch(err => console.log(err));
 
 
 async function main(){
-  await mongoose.connect(uri);
+  await mongoose.connect(process.env.DB_URI);
 
 
 
