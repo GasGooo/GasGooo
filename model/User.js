@@ -6,8 +6,13 @@ const userSchema = new Schema({
     name: String,
     surname: String,
     birthdate: Date,
-    email: String,
-    password: String,
+    email: {
+        type: String,
+        unique: true
+    },
+    password: {
+        type: String
+    },
     address: String
   });  
 

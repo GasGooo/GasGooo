@@ -9,6 +9,7 @@
   "author": "Elia Zonta, Lorenzo Pattaro Zonta",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
