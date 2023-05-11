@@ -15,4 +15,17 @@ router.post('/users', async (req, res) => {
   }
 });
 
+router.get('/users', async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    const resultUser = await User.find({email: email});
+    res.status(201).json({ message: 'Trovato'});
+  } catch (err){
+    res.status(400).json({ message: "User not found" });
+  
+  }
+
+});
+
 module.exports = router;
