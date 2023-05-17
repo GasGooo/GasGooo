@@ -27,8 +27,8 @@ server.listen(port, () => {
 });
 
 
-app.get("/",function(request,response){
-  response.send("Bonasera")
+app.get("/",function(req, res){
+  res.send("Bonasera")
 })
 
 
