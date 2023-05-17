@@ -13,7 +13,7 @@ const CLIENT_ID = require('./secret')
 const client = new OAuth2Client(CLIENT_ID);
 
 
-const PORT = 7000;
+// const PORT = 7000;
 
 // Middleware
 
@@ -93,6 +93,6 @@ function checkAuthenticated(req, res, next){
 }
 
 
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`);
-})
+// app.listen(PORT, ()=>{
+    // console.log(`Server running on port ${PORT}`);
+// }

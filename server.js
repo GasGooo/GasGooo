@@ -18,8 +18,8 @@ const PORT = 10000;
 app.listen(PORT, () => console.log(`Server in ascolto sulla porta ${PORT}`));
 
 
-app.get("/",function(request,response){
-  response.send("Hello World!")
+app.get("/", function(request, res){
+  res.render("UI/index")
 })
 
 async function createUser(name, surname, birthdate, mail, password, address) {
