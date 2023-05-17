@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 //userSchema
 
 const userSchema = new Schema({
-    name: String,
-    surname: String,
+    name: {type: String, default: null},
+    surname: {type: String, default: null},
     birthdate: Date,
     email: {
         type: String,
@@ -14,7 +14,8 @@ const userSchema = new Schema({
     password: {
         type: String
     },
-    address: String
+    address: String,
+    token: { type: String }
   });  
 
 module.exports = User = mongoose.model("user", userSchema);
