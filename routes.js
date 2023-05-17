@@ -16,16 +16,26 @@ router.post('/users', async (req, res) => {
 });
 
 router.get('/users', async (req, res) => {
-  const email = req.params.email;
 
   try {
-    const resultUser = await User.find({email: email});
-    res.status(201).json({ message: 'Trovato'});
-  } catch (err){
-    res.status(400).json({ message: "User not found" });
+    const email = req.params.email;
+    console.log(email);
+    const resultUser = await User.findOne({email: email});
+    console.log(resultUser);
+
+    if (!resultUser){
+        return res.status(404).json({message: "User not found"}); 
+    } else {
+      return res.status(201).json({message: "User found"});
+    } 
+   } catch (err){
+    console.log(err);
+    return res.status(500).json({ message: "Error: ", err});
   
   }
 
 });
+
+
 
 module.exports = router;
