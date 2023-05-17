@@ -15,11 +15,11 @@ app.use('/api', routes);
 
 const PORT = 10001;
 
-app.listen(PORT, () => console.log(`Server in ascolto sulla porta ${PORT}`));
+app.listen(PORT, () => console.log(`Server listening on port:  ${PORT}`));
 
 
 app.get("/", function(req, res){
-  res.render("index")
+  res.render("UI/index")
 })
 
 // app.get("/login", function(req, res){
