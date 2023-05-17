@@ -8,12 +8,12 @@ const app = express();
 const cookieParser = require('cookie-parser')
 
 // Google Auth
-const {OAuth2Client} = require('google-auth-library');
-const CLIENT_ID = require('./secret')
-const client = new OAuth2Client(CLIENT_ID);
+
+//const {OAuth2Client} = require('google-auth-library');
+//const CLIENT_ID = require('./secret')
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 
-const PORT = 7000;
 
 // Middleware
 
@@ -65,7 +65,6 @@ app.get('/logout', (req, res)=>{
 
 })
 
-
 function checkAuthenticated(req, res, next){
 
     let token = req.cookies['session-token'];
@@ -93,6 +92,17 @@ function checkAuthenticated(req, res, next){
 }
 
 
-app.listen(PORT, ()=>{
-    console.log(`Server running on port ${PORT}`);
-})
+
+ 
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.URL_CALLBACK,
+    passReqToCallback   : true
+  },
+  function(request, accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
