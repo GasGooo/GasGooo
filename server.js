@@ -13,14 +13,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 
-const PORT = 10000;
+const PORT = 10001;
 
 app.listen(PORT, () => console.log(`Server in ascolto sulla porta ${PORT}`));
 
 
-app.get("/", function(request, res){
-  res.render("UI/index")
+app.get("/", function(req, res){
+  res.render("index")
 })
+
+// app.get("/login", function(req, res){
+  // res.render("login")
+// })
 
 async function createUser(name, surname, birthdate, mail, password, address) {
   const newUser = new User({

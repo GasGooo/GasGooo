@@ -13,7 +13,6 @@ const CLIENT_ID = require('./secret')
 const client = new OAuth2Client(CLIENT_ID);
 
 
-// const PORT = 7000;
 
 // Middleware
 
@@ -65,7 +64,6 @@ app.get('/logout', (req, res)=>{
 
 })
 
-
 function checkAuthenticated(req, res, next){
 
     let token = req.cookies['session-token'];
@@ -92,7 +90,3 @@ function checkAuthenticated(req, res, next){
 
 }
 
-
-// app.listen(PORT, ()=>{
-    // console.log(`Server running on port ${PORT}`);
-// }
