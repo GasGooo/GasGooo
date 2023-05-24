@@ -5,11 +5,15 @@ const User = require('./model/User');
 const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const auth = require("./middleware/auth");
-
+const auth = require('./middleware/auth');
+const passport = require('passport')
+require('./middleware/auth')
 
 
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Register
 app.post("/register", async (req, res) => {
@@ -107,5 +111,18 @@ app.post("/login", async (req, res) => {
         console.log(err);
     }
 });
+
+
+app.get('/success', (req, res) => {
+    //WIP - gonna render the 'succesfully logged in page'
+});
+// Google Sign in
+app.get("/google", passport.authenticate('google'), {scope: ['profile', 'email']});
+// redirection if successful sign in 
+app.get('/', passport.authenticate('google', {failureRedirect: '/failed'}),
+    function(req, res){
+        res.redirect('/success');
+    });
+
 
 module.exports = app;
