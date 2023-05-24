@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
-var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 
 const config = process.env;
