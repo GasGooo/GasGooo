@@ -9,7 +9,7 @@ router.post('/users', async (req, res) => {
   try {
     await user.save();
     console.log(user);
-    res.status(201).json({ message: 'Utente creato correttamente' });
+    res.status(201).json({ message: 'User correctly created' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -35,7 +35,5 @@ router.get('/users', async (req, res) => {
   }
 
 });
-
-
 
 module.exports = router;
