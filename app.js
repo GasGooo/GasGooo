@@ -66,9 +66,9 @@ app.post("/register", async (req, res) => {
 });
 
 //Welcome - if request contains valid jwt the user will be greeted
-app.post("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 🙌");
-});
+// app.post("/welcome", auth, (req, res) => {
+//     res.status(200).send("Welcome 🙌");
+// });
 
 
 // Login
