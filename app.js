@@ -3,18 +3,55 @@ require("./config/db").connect();
 const express = require("express");
 const User = require('./model/User');
 const app = express();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const auth = require('./middleware/auth');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const auth = require('./middleware/auth');
 const passport = require('passport')
+const cookieSession = require('cookie-session');
+const path = require("path");
 require('./middleware/auth')
 
 
 app.use(express.json());
+// app.use(passport.initialize());
+// app.use(passport.session());
+app.use(express.static(path.join(__dirname,'UI')))
+
+
+app.use(cookieSession({
+	name: 'google-auth-session',
+	keys: ['key1', 'key2']
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+	
+// Google Auth
+app.get('/auth' , passport.authenticate('google', { scope:
+	[ 'email', 'profile' ]
+}));
+
+// Google Auth Callback
+app.get( '/auth/callback',
+	passport.authenticate( 'google', {
+		successRedirect: '/auth/callback/success',
+		failureRedirect: '/auth/callback/failure'
+}));
+
+// Google Auth Success
+app.get('/auth/callback/success' , (req , res) => {
+	if(!req.user)
+		res.redirect('/auth/callback/failure');
+	res.send("Daje roma funzia, ciao " + req.user.email);
+    // res.sendFile('success.html')
+});
+
+// Google Auth Failure
+app.get('/auth/callback/failure' , (req , res) => {
+	res.send("Error");
+})
 
 
+//========= Manual registration ==========
 // Register
 app.post("/register", async (req, res) => {
     try{
@@ -65,10 +102,11 @@ app.post("/register", async (req, res) => {
 }
 });
 
+
 //Welcome - if request contains valid jwt the user will be greeted
-app.post("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 🙌");
-});
+// app.post("/welcome", auth, (req, res) => {
+    // res.status(200).send("Welcome 🙌");
+// });
 
 
 // Login
@@ -112,17 +150,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-
-app.get('/success', (req, res) => {
-    //WIP - gonna render the 'succesfully logged in page'
-});
-// Google Sign in
-app.get("/google", passport.authenticate('google'), {scope: ['profile', 'email']});
-// redirection if successful sign in 
-app.get('/', passport.authenticate('google', {failureRedirect: '/failed'}),
-    function(req, res){
-        res.redirect('/success');
-    });
 
 
 module.exports = app;

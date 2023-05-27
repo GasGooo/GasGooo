@@ -1,17 +1,5 @@
 require('dotenv').config()
 const express = require("express")
-// const User = require("./model/User");
-// const mongoose = require('mongoose');
-// const bodyParser = require('body-parser');
-// const db = require('./config/db');
-// const routes = require('./routes');
-//
-// const app = express();
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-//
-// app.use('/api', routes);
 
 const http = require("http");
 const app = require("./app");
@@ -28,6 +16,7 @@ server.listen(port, () => {
 
 
 app.get("/",function(req, res){
+  // res.render('UI/index.html')
   res.send("Bonasera")
 })
 
