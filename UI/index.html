@@ -5,12 +5,164 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GasGoo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>GasGoo</h1>
-    <h3 class="">The fuel made easier</h3>
-    <button><a href='/auth'>Login With Google</a></button>    
-    
+    <h3 class="slogan"><span>The</span><span>Fuel</span><span>Made</span><span>Easier</span></h3>
+    <h3><span id="userName"></span></h3>
+    <h3><span id="userEmail"></span></h3>
+    <button><a href='/auth'>Login With Google</a></button>
+
+    <h3>Register with your data</h3>
+    <form id="registerForm" method="POST" action="/register">
+        <label>
+            <input type="text" name="name" placeholder="Name">
+        </label><br>
+        <label>
+            <input type="text" name="surname" placeholder="Surname">
+        </label><br>
+        <label>
+            <input type="date" name="birthdate">
+        </label><br>
+        <label>
+            <input type="email" name="email" placeholder="Email">
+        </label><br>
+        <label>
+            <input type="password" name="password" placeholder="Password">
+        </label><br>
+        <label>
+            <input type="text" name="address" placeholder="Address">
+        </label><br>
+
+
+        <input type="submit" value="Invia"><p id="result"></p>
+
+
+
+    </form>
+
+    <h3>Login with your data</h3>
+    <form id="loginForm" method="POST" action="/login">
+        <label>
+            <input type="email" name="email" placeholder="Email">
+        </label><br>
+        <label>
+            <input type="password" name="password" placeholder="Password">
+        </label><br>
+
+        <input type="submit" value="Invia"><p id="logStatus"></p>
+    </form>
+
+    <button id="logout">Logout</button>
+
+    <script>
+        const registerForm = document.getElementById('registerForm');
+
+        registerForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form sent
+
+            const formData = new FormData(registerForm);
+            const jsonData = {};
+
+            // Convert FormData object to JSON
+            for (let [key, value] of formData.entries()) {
+                jsonData[key] = value;
+            }
+
+            console.log(jsonData);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/register', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            // Send JSON as body of the request
+            xhr.send(JSON.stringify(jsonData));
+
+            // Handle server response
+
+            xhr.onload = function() {
+                if (xhr.status === 201) {
+                    console.log('Dati inviati con successo!');
+                    document.getElementById("result").innerHTML = "Data sent successfully!"
+                } else {
+
+                    console.error('Errore durante l\'invio dei dati.');
+                }
+            };
+        });
+
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form sent
+
+            const formData = new FormData(loginForm);
+            const jsonData = {};
+            console.log(formData);
+
+            for (let [key, value] of formData.entries()) {
+                jsonData[key] = value;
+            }
+
+            console.log(jsonData);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/login', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.send(JSON.stringify(jsonData));
+
+            // Handle server respond if necessary
+
+            xhr.onload = async function () {
+                if (xhr.status === 200) {
+                    console.log('Successfully login!');
+                    document.getElementById("logStatus").innerHTML = "Logged in successfully!";
+                    //print json response
+                    console.log(xhr.responseText);
+                    const response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    console.log(response.token);
+                    //save token email and name in local storage
+                    localStorage.setItem('token', response.token);
+                    localStorage.setItem('email', response.email);
+                    localStorage.setItem('name', response.name);
+                    checkLogin();
+
+                } else {
+                    console.error('Wrong credentials.');
+                    document.getElementById("logStatus").innerHTML = "Wrong credentials!";
+                }
+            };
+        });
+
+        //logout function
+        function logout(){
+            localStorage.removeItem('token');
+            localStorage.removeItem('email');
+            localStorage.removeItem('name');
+            window.location.href = '/';
+        }
+
+        //check if user is logged in
+        function checkLogin(){
+            const token = localStorage.getItem('token');
+            if(token){
+                //get user name and name from local storage
+                const name = localStorage.getItem('name');
+                const email = localStorage.getItem('email');
+                document.getElementById("userName").innerHTML = "Welcome, " + name;
+                document.getElementById("userEmail").innerHTML = "Your email is: " + email;
+            }
+        }
+
+        document.getElementById("logout").addEventListener("click", logout);
+
+
+    </script>
+
+
 </body>
 </html>

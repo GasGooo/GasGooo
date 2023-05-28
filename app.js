@@ -3,13 +3,15 @@ require("./config/db").connect();
 const express = require("express");
 const User = require('./model/User');
 const app = express();
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const auth = require('./middleware/auth');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const auth = require('./middleware/auth');
 const passport = require('passport')
 const cookieSession = require('cookie-session');
 const path = require("path");
 require('./middleware/auth')
+const cookieParser = require('cookie-parser')
+
 
 
 app.use(express.json());
@@ -56,9 +58,8 @@ app.get('/auth/callback/failure' , (req , res) => {
 app.post("/register", async (req, res) => {
     try{
 
+        console.log(req.body);
         const {name, surname, birthdate, email, password, address} = req.body;
-
-        console.log("La password non criptata è " + password);
 
     // Validate user input
     if (!(email && password && name && surname)) {
@@ -71,7 +72,6 @@ app.post("/register", async (req, res) => {
         if(userAlreadyRegistered){
             return res.status(409).send("User Already Exist. Please Login");
         }
-    }
 
         let user;
 
@@ -96,6 +96,7 @@ app.post("/register", async (req, res) => {
             // return new user
             res.status(201).json(user);
         });
+    }
 
 } catch (err) {
     console.log(err);
@@ -105,7 +106,7 @@ app.post("/register", async (req, res) => {
 
 //Welcome - if request contains valid jwt the user will be greeted
 // app.post("/welcome", auth, (req, res) => {
-    // res.status(200).send("Welcome 🙌");
+//     res.status(200).send("Welcome 🙌");
 // });
 
 
@@ -115,6 +116,8 @@ app.post("/login", async (req, res) => {
     try {
         // Get user input via json
         const { email, password } = req.body;
+
+        console.log("Email: " + email + " Password: " + password);
 
         // Validate user input
         if (!(email && password)) {
@@ -135,8 +138,10 @@ app.post("/login", async (req, res) => {
                                 expiresIn: "2h",
                             }
                         );
-
+                        //Set samesite to none to allow cross site cookies
+                        res.cookie(`User token`,user.token, {sameSite: 'none'});
                         res.status(200).json(user);
+
                     } else if (result === false){
                         res.status(400).send("Invalid Credentials");
                     }
@@ -149,6 +154,8 @@ app.post("/login", async (req, res) => {
         console.log(err);
     }
 });
+
+
 
 
 
