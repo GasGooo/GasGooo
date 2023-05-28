@@ -65,7 +65,6 @@ app.post("/register", async (req, res) => {
     if (!(email && password && name && surname)) {
         res.status(400).send("All input is required");
     } else {
-        // check if user already exist
         // Validate if user exist in our database
         const userAlreadyRegistered = await User.findOne({email});
 
@@ -116,8 +115,6 @@ app.post("/login", async (req, res) => {
     try {
         // Get user input via json
         const { email, password } = req.body;
-
-        console.log("Email: " + email + " Password: " + password);
 
         // Validate user input
         if (!(email && password)) {
