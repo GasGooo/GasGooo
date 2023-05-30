@@ -10,9 +10,13 @@
 
 <body>
     <h1>GasGoo</h1>
-    <h3 class="slogan"><span>The</span><span>Fuel</span><span>Made</span><span>Easier</span></h3>
-    <h3><span id="userName"></span></h3>
-    <h3><span id="userEmail"></span></h3>
+    <h3 class="slogan"><span>The </span><span>Fuel </span><span>Made </span><span>Easier </span></h3>
+    <h3 id="userName"></h3>
+    <h3 id="userEmail"></h3>
+    <!-- display the userToken only if you click on a button-->
+    <button id="userTokenButton">Display user token</button>
+    <h3 id="userToken"></h3>
+
     <button><a href='/auth'>Login With Google</a></button>
 
     <h3>Register with your data</h3>
@@ -84,11 +88,12 @@
 
             xhr.onload = function() {
                 if (xhr.status === 201) {
-                    console.log('Dati inviati con successo!');
+                    console.log('Data sent successfully!');
                     document.getElementById("result").innerHTML = "Data sent successfully!"
                 } else {
 
-                    console.error('Errore durante l\'invio dei dati.');
+                    console.error('Error during data sending!');
+                    document.getElementById("result").innerHTML = "Error during data sending!";
                 }
             };
         });
@@ -158,11 +163,20 @@
             }
         }
 
+        //hide userToken if you click again on its button
+        document.getElementById("userTokenButton").addEventListener("click", function(){
+            const token = localStorage.getItem('token');
+            if(document.getElementById("userToken").innerHTML !== ""){
+                document.getElementById("userToken").innerHTML = "";
+            }else if (token) {
+                document.getElementById("userToken").innerHTML = "Your token is: " + token;
+            }
+        });
+
         document.getElementById("logout").addEventListener("click", logout);
 
 
     </script>
-
 
 </body>
 </html>

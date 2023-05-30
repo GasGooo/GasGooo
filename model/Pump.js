@@ -15,4 +15,4 @@ const pumpSchema = new Schema({
   Longitudine: String
 });  
 
-module.exports = User = mongoose.model("user", userSchema);
+module.exports = User = mongoose.model("pump", pumpSchema);

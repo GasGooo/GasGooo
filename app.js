@@ -11,7 +11,7 @@ const cookieSession = require('cookie-session');
 const path = require("path");
 require('./middleware/auth')
 const cookieParser = require('cookie-parser')
-
+require("./import/importPump").importPump();
 
 
 app.use(express.json());
