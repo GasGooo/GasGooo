@@ -160,17 +160,19 @@ app.get('/user/:email', async (req, res) => {
         const user = await User.findOne({email: req.params.email});
         res.status(200).json(user);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(404).send("User not found");
     }
 });
 
 //app delete user having the user email as a parameter
-app.delete('/user/:email', async (req, res) => {
+app.delete('/user/delete/:email', async (req, res) => {
     try {
         const user = await User.deleteOne({email: req.params.email});
         res.status(200).json(user);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(404).send("User not found");
     }
 });
 
