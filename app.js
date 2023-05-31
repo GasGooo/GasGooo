@@ -11,7 +11,7 @@ const cookieSession = require('cookie-session');
 const path = require("path");
 require('./middleware/auth')
 const cookieParser = require('cookie-parser')
-require("./import/importPump").importPump();
+// require("./import/importPump").importPump();
 
 
 app.use(express.json());
@@ -38,6 +38,7 @@ app.get( '/auth/callback',
 		successRedirect: '/auth/callback/success',
 		failureRedirect: '/auth/callback/failure'
 }));
+
 
 // Google Auth Success
 app.get('/auth/callback/success' , (req , res) => {
@@ -152,6 +153,26 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
+//app get having the user email as a parameter
+app.get('/user/:email', async (req, res) => {
+    try {
+        const user = await User.findOne({email: req.params.email});
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//app delete user having the user email as a parameter
+app.delete('/user/:email', async (req, res) => {
+    try {
+        const user = await User.deleteOne({email: req.params.email});
+        res.status(200).json(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 
 
