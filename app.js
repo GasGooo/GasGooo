@@ -141,7 +141,7 @@ app.post("/login", async (req, res) => {
                         res.status(200).json(user);
 
                     } else if (result === false){
-                        res.status(400).send("Invalid Credentials");
+                        res.status(418).send("Invalid Credentials");
                     }
                 });
             } else {
