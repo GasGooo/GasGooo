@@ -15,10 +15,4 @@ server.listen(port, () => {
 });
 
 
-app.get("/",function(req, res){
-  // res.render('UI/index.html')
-  res.send("Bonasera")
-})
-
-
 

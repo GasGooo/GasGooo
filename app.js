@@ -44,7 +44,7 @@ app.get( '/auth/callback',
 app.get('/auth/callback/success' , (req , res) => {
 	if(!req.user)
 		res.redirect('/auth/callback/failure');
-	res.send("Daje roma funzia, ciao " + req.user.email);
+	res.send("Google auth working ! User email : " + req.user.email);
     // res.sendFile('success.html')
 });
 
