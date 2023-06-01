@@ -1,0 +1,174 @@
+---
+openapi: 3.0.0
+info:
+  title: GasGOO API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/LYREPLUS_1/GasGoo/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://gasgoo.onrender.com
+  description: Production server
+paths:
+  /register:
+    post:
+      summary: Registra un nuovo utente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        "201":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserResponse'
+        "400":
+          description: All input is required
+          content:
+            text/html:
+              schema:
+                type: string
+              example: All input is required
+        "409":
+          description: User Already Exist. Please Login
+          content:
+            text/html:
+              schema:
+                type: string
+              example: User Already Exist. Please Login
+  /login:
+    post:
+      summary: Effettua il login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: All input is required
+          content:
+            text/html:
+              schema:
+                type: string
+              example: All input is required
+        "418":
+          description: Invalid credentials
+          content:
+            text/html:
+              schema:
+                type: string
+              example: Invalid credentials
+        "404":
+          description: User doesn't exist
+          content:
+            text/html:
+              schema:
+                type: string
+              example: User doesn't exist
+  /user/{email}:
+    get:
+      summary: Get user by email
+      description: Retrieve user data based on email
+      parameters:
+      - name: email
+        in: path
+        description: Email address of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
+          content:
+            text/html:
+              schema:
+                type: string
+              example: User not found
+  /user/delete/{email}:
+    delete:
+      summary: Delete user
+      description: Delete user from database
+      parameters:
+      - name: email
+        in: path
+        description: Email address of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        birthdate:
+          type: string
+          format: date
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+        address:
+          type: string
+        token:
+          type: string
+    RegisteredUserResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        token:
+          type: string
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+    inline_response_200:
+      type: object
+      properties:
+        acknowledged:
+          type: boolean
+        deletedCount:
+          type: integer
