@@ -2,6 +2,7 @@ require("dotenv").config();
 require("./config/db").connect();
 const express = require("express");
 const User = require('./model/User');
+const Checkout = require('./model/Checkout');
 const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -53,6 +54,55 @@ app.get('/auth/callback/failure' , (req , res) => {
 	res.send("Error");
 })
 
+//checkout of the order
+app.get('/checkout', (req, res) => {
+    res.sendFile(path.join(__dirname,'UI','checkout.html'));
+
+});
+
+app.post('/checkoutPost', async (req, res) => {
+    try {
+        console.log(req.body);
+        const {email, cashAmount, fuel, date} = req.body;
+        if (!cashAmount || cashAmount === 0) {
+            console.log("No amount of cash selected");
+            return res.status(402).send("No amount of cash selected");
+        } else {
+            if (fuel !== "Diesel" && fuel !== "Gasoline" && fuel !== "Methane" && fuel !== "GPL") {
+                console.log("No fuel selected");
+                return res.status(406).send("No fuel selected");
+            } else {
+                if (email) {
+                const doesUserExists = await User.findOne({email});
+
+                if (!doesUserExists) {
+                    console.log("No account found with the given email");
+                    return res.status(404).send("It wasn't possible to find the account with the given email");
+                }
+
+                    await Checkout.create({
+                        email: email,
+                        cashAmount: cashAmount,
+                        fuel: fuel,
+                        date: date,
+                    });
+                    console.log("Checkout successfully done!");
+                    return res.status(200);
+                } else {
+                    console.log("Mail not entered");
+                    return res.status(404).send("Email not entered");
+                }
+
+            }
+        }
+    } catch (err) {
+        return res.status(400).send("Bad request: " + err);
+    }
+});
+
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname,'UI','favicon.ico'));
+});
 
 //========= Manual registration ==========
 // Register
@@ -141,7 +191,7 @@ app.post("/login", async (req, res) => {
                         res.status(200).json(user);
 
                     } else if (result === false){
-                        res.status(400).send("Invalid Credentials");
+                        res.status(418).send("Invalid Credentials");
                     }
                 });
             } else {
@@ -165,7 +215,7 @@ app.get('/user/:email', async (req, res) => {
 });
 
 //app delete user having the user email as a parameter
-app.delete('/user/:email', async (req, res) => {
+app.delete('/user/delete/:email', async (req, res) => {
     try {
         const user = await User.deleteOne({email: req.params.email});
         res.status(200).json(user);

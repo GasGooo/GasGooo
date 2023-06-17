@@ -59,6 +59,8 @@
         <input type="submit" value="Invia"><p id="logStatus"></p>
     </form>
 
+
+
     <button id="logout">Logout</button>
 
     <p><b>GasGooo 1.0.0</b> is <span style="color: green">online</span></p>
@@ -108,7 +110,7 @@
 
             const formData = new FormData(loginForm);
             const jsonData = {};
-            console.log(formData);
+            xhr.send(JSON.stringify(jsonData));console.log(formData);
 
             for (let [key, value] of formData.entries()) {
                 jsonData[key] = value;
