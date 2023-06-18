@@ -8,6 +8,10 @@
     align-items: center;
     row-gap: 20%;
 }
+.bg{
+    z-index: -99;
+    background-color: aquamarine;
+}
 .title{
     padding-top: 5%;
     font-size: var(--h1-font-size);

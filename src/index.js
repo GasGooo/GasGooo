@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Register from './components/register/register';
 import Login from './components/login/login';
 import Home from './components/home/home';
+import Checkout from './components/checkout/checkout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

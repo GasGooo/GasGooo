@@ -10,6 +10,8 @@ import Home from "./components/home/home";
 import Register from "./components/register/register";
 import Cursor from "./components/cursor/cursor";
 import Contact from "./components/contacts/contacts";
+import Checkout from "./components/checkout/checkout";
+import Copyright from "./components/copyright/copyright";
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -18,6 +20,7 @@ export default function App() {
     damping: 30,
     restDelta: 0.001
   });
+
   // const [message, setMessage] = useState("");
   // function getToken() {
   //   axios.get("http://gasgoo.onrender.com",  { crossdomain: true }).then(response => {
@@ -27,25 +30,33 @@ export default function App() {
   // }
 
   return (
-    <>
-      <Cursor />
-      <Parallax pages={4}>
-          <ParallaxLayer offset={0} speed={1}>
+    <div className="">
+    <Cursor />
+
+    <Parallax pages={5}>
+        <ParallaxLayer speed={1}>
           <Home />
-          </ParallaxLayer>
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={1} speed={0.5}>
-            <Login/>
-          </ParallaxLayer>
+        <ParallaxLayer offset={1} speed={0.7}>
+          <Login />
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={2} speed={0.5}>
-            <Register/>
-          </ParallaxLayer>
+        <ParallaxLayer offset={2} speed={0.7}>
+          <Register />
+        </ParallaxLayer>
 
-          <ParallaxLayer offset={3} speed={0.5}>
-            <Contact/>
-          </ParallaxLayer>
+        <ParallaxLayer offset={3} speed={0.7}>
+          <Checkout />
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={4} speed={0.7}>
+          <Contact />
+          <Copyright sx={{ mt: 5 }} />
+        </ParallaxLayer>
+
       </Parallax>
-      </>
+    </div>
+
   );
 }

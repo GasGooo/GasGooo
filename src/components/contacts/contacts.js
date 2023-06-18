@@ -48,6 +48,7 @@ const Contact = () => {
 
                     <button href="#" className="contact_button" type='submit'>
                         <i class="uil uil-arrow-right"/>
+                        <p>Send</p>
                     </button>
                 </form>
             </div>

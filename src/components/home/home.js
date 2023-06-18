@@ -9,9 +9,9 @@ export default function Home() {
   return (
     <div className="container">
     <div className="title">GasGoo🔥</div>
-    <div className="subtitle">The fuel made easier</div>
+    <div className="subtitle">the fuel made easier.</div>
     <Button className="home-btn" variant="contained" >Join GasGoo</Button>
-    <Wave className="wave" fill='#FF3434'
+    <Wave className="wave" fill='#00000'
         paused={false}
         options={{
           height: 10,
