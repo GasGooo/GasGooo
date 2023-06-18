@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("./config/db").connect();
+const a = require("./config/db").connect();
 const express = require("express");
 const User = require('./model/User');
 const Checkout = require('./model/Checkout');
