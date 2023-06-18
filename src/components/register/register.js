@@ -88,7 +88,6 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -123,7 +122,13 @@ export default function Register() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox 
+                    sx={{
+                      color: '#8BACAA',
+                      ":hover": {
+                        color: '#E76161',
+                      },
+                    }}/>
                   }
                   label="I understand GasGoo is super cool"
                 />
@@ -133,7 +138,14 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                backgroundColor: '#8BACAA',
+                ":hover": {
+                  backgroundColor: '#E76161',
+
+                },
+                mt: 3, mb: 2,
+              }}
             >
               Sign Up
             </Button>
@@ -142,7 +154,14 @@ export default function Register() {
               fullWidth
               variant="contained"
               startIcon={<GoogleIcon />}
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                backgroundColor: '#8BACAA',
+                ":hover": {
+                  backgroundColor: '#E76161',
+
+                },
+                mt: 3, mb: 2,
+              }}
               href="/auth"
             >
                 Sign in 

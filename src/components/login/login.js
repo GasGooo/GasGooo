@@ -78,7 +78,15 @@ export default function Login() {
                 <Grid item xs={12}>
                   <FormControlLabel
                     control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
+                      <Checkbox 
+                      sx={{
+                        color: '#8BACAA',
+                        ":hover": {
+                          color: '#E76161',
+      
+                        },
+                      }}
+                      value="allowExtraEmails" color="primary" />
                     }
                     label="I understand GasGoo is super cool"
                   />
