@@ -1,5 +1,5 @@
 require("dotenv").config();
-const a = require("./config/db").connect();
+require("./config/db").connect();
 const express = require("express");
 const User = require('./model/User');
 const Checkout = require('./model/Checkout');
@@ -218,7 +218,8 @@ app.get('/user/:email', async (req, res) => {
         const user = await User.findOne({email: req.params.email});
         res.status(200).json(user);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(404).send("User not found");
     }
 });
 
