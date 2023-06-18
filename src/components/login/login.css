@@ -1,0 +1,10 @@
+.container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--body-font);
+    background-color: var(--first-color);
+    height: 100%;
+    align-items: center;
+
+}
