@@ -18,9 +18,14 @@ const cookieParser = require('cookie-parser')
 app.use(express.json());
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use(express.static(path.join(__dirname,'UI')))
+app.use(express.static(path.join(__dirname,'build')))
 
+// this is used in order to render React frontend from backend
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
+//init cookie session
 app.use(cookieSession({
 	name: 'google-auth-session',
 	keys: ['key1', 'key2']
@@ -39,7 +44,6 @@ app.get( '/auth/callback',
 		successRedirect: '/auth/callback/success',
 		failureRedirect: '/auth/callback/failure'
 }));
-
 
 // Google Auth Success
 app.get('/auth/callback/success' , (req , res) => {

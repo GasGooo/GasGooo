@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider} from "@mui/material/styles";
 import Copyright from "../copyright/copyright";
 import { DatePicker } from "@mui/x-date-pickers";
 import GoogleIcon from '@mui/icons-material/Google';
-
+import "./register.css"
 
 const theme = createTheme();
 
@@ -88,6 +88,7 @@ export default function Register() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,7 +98,6 @@ export default function Register() {
                   fullWidth
                   id="firstName"
                   label="Address"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -143,12 +143,13 @@ export default function Register() {
               variant="contained"
               startIcon={<GoogleIcon />}
               sx={{ mt: 3, mb: 2 }}
+              href="/auth"
             >
                 Sign in 
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

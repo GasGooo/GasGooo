@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { Button } from "@mui/material";
-import axios from "axios"
-import Wave from 'react-wavify'
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import { motion, useSpring, useScroll } from "framer-motion"
 import Login from "./components/login/login";
 import Home from "./components/home/home";
-import Register from "./components/register/register";
 import Cursor from "./components/cursor/cursor";
+import NoPage from "./components/NoPage/NoPage";
+import About from "./components/about/about";
 import Contact from "./components/contacts/contacts";
-import Checkout from "./components/checkout/checkout";
-import Copyright from "./components/copyright/copyright";
+import Footer from "./components/footer/footer";
+import Register from "./components/register/register";
+
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -30,33 +31,14 @@ export default function App() {
   // }
 
   return (
-    <div className="">
+  <div className="container">
     <Cursor />
-
-    <Parallax pages={5}>
-        <ParallaxLayer speed={1}>
-          <Home />
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={1} speed={0.7}>
-          <Login />
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={2} speed={0.7}>
-          <Register />
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={3} speed={0.7}>
-          <Checkout />
-        </ParallaxLayer>
-
-        <ParallaxLayer offset={4} speed={0.7}>
-          <Contact />
-          <Copyright sx={{ mt: 5 }} />
-        </ParallaxLayer>
-
-      </Parallax>
-    </div>
-
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NoPage />} />
+    </Routes>
+  </div>    
   );
 }

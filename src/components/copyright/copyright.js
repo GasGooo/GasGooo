@@ -12,7 +12,7 @@ export default function Copyright(props) {
         {...props}
       >
         {"Copyright © "}
-        <Link color="inherit" href="https://gasgoo.onrender.com/">
+        <Link color="inherit" href="/">
           GasGoo🔥
         </Link>{" "}
         {new Date().getFullYear()}
