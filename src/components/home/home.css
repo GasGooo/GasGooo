@@ -1,0 +1,37 @@
+.container{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--body-font);
+    background-color: var(--first-color);
+    height: 100%;
+    align-items: center;
+    row-gap: 20%;
+}
+.title{
+    padding-top: 5%;
+    font-size: var(--h1-font-size);
+}
+.subtitle{
+    font-size: var(--h2-font-size);
+    color: var(--title-color);
+}
+.subtitle:hover{
+    font-size: var(--h2-font-size);
+    color: var(--body-color);
+}
+.home-btn{
+    align-self: center;
+    width: 50%;
+    height: 4.5rem;
+    color: white;
+    background-color: var(--fourth-color);
+}
+
+.home-btn:hover{
+    align-self: center;
+    width: 50%;
+    height: 4.5rem;
+    color: white;
+    background-color: var(--third-color);
+}

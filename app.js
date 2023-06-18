@@ -45,14 +45,22 @@ app.get( '/auth/callback',
 app.get('/auth/callback/success' , (req , res) => {
 	if(!req.user)
 		res.redirect('/auth/callback/failure');
-	res.send("Daje roma funzia, ciao " + req.user.email);
-    // res.sendFile('success.html')
+	//res.send("Google auth working ! User email : " + req.user.email);
+    res.sendFile(__dirname + "/UI/success.html");
 });
 
 // Google Auth Failure
 app.get('/auth/callback/failure' , (req , res) => {
-	res.send("Error");
-})
+    res.sendFile(__dirname + "/UI/failure.html");
+});
+
+// Google logout
+app.get('/logout', (req, res, next) => {
+    if (req.session) {
+        req.session = null;
+        res.redirect('/');
+    }
+});
 
 //checkout of the order
 app.get('/checkout', (req, res) => {
@@ -220,11 +228,10 @@ app.delete('/user/delete/:email', async (req, res) => {
         const user = await User.deleteOne({email: req.params.email});
         res.status(200).json(user);
     } catch (err) {
-        console.log(err);
+        // console.log(err);
+        res.status(404).send("User not found");
     }
 });
-
-
 
 
 module.exports = app;
