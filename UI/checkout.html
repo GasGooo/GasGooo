@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GasGoo checkout</title>
+
+</head>
+<body>
+
+<form id="checkoutForm" method="POST" action="/checkoutPost">
+    <label>
+        <input type="email" name="email" placeholder="Email">
+    </label><br>
+    <label>
+        <input type="text" name="fuel" list="fueltypes">
+        <datalist id="fueltypes">
+            <option value="Gasoline">
+            <option value="Diesel">
+            <option value="Methane">
+            <option value="LPG">
+        </datalist>
+    </label><br>
+    <label>
+        <input type="number" name="cashAmount" placeholder="Amount of $">
+    </label><br>
+    <input type="submit" value="Invia"><p id="result"></p>
+
+    <br>
+    <p id="checkoutStatus"></p>
+</form>
+
+
+
+<script>
+    //send form data to server
+    const checkoutForm = document.getElementById('checkoutForm');
+
+    checkoutForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form sent
+
+        const formData = new FormData(checkoutForm);
+        const jsonData = {};
+        console.log(formData);
+
+        for (let [key, value] of formData.entries()) {
+            jsonData[key] = value;
+        }
+
+        //add date of the day
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth()+1;
+        let yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        }
+        if(mm<10){
+            mm='0'+mm;
+        }
+        today = yyyy+'-'+mm+'-'+dd;
+        jsonData["date"] = today;
+        console.log(today);
+
+        console.log(jsonData);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/checkoutPost', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.send(JSON.stringify(jsonData));
+
+        // Handle server respond if necessary
+
+        xhr.onload = async function () {
+            if (xhr.status === 200) {
+                console.log('Checkout placed!');
+                document.getElementById("checkoutStatus").innerHTML = "Logged in successfully!";
+                //print json response
+                console.log(xhr.responseText);
+                const response = JSON.parse(xhr.responseText);
+                console.log(response);
+
+            } else {
+                switch (xhr.status) {
+                    case 200:
+                        console.log("Checkout successfully done!");
+                        document.getElementById("checkoutStatus").innerHTML = "Checkout successfully done!";
+                        break;
+                    case 402:
+                        console.error('No amount of cash specified!');
+                        document.getElementById("checkoutStatus").innerHTML = "No amount of cash specified!";
+                        break;
+                    case 404:
+                        console.error('User not found!');
+                        document.getElementById("checkoutStatus").innerHTML = "User with the given mail not found!";
+                        break;
+                    case 406:
+                        console.error('No fuel type specified!');
+                        document.getElementById("checkoutStatus").innerHTML = "No fuel type specified!";
+                        break;
+                    default:
+                        console.error("Unexpected error!");
+                        document.getElementById("Unexpected error!");
+                }
+            }
+        };
+    });
+</script>
+
+</body>
+</html>
