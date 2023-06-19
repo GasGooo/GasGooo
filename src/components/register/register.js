@@ -32,8 +32,36 @@ export default function Register() {
       firstname: data.get("firstName"),
       lastname: data.get("lastName"),
       address: data.get("address"),
-      dateofbirth: data.get("Birthdate"),
+      date: data.get("Birthdate"),
     });
+
+    const formData = data;
+    const jsonData = {};
+
+    // Convert FormData object to JSON
+    for (let [key, value] of formData.entries()) {
+      jsonData[key] = value;
+    }
+
+    console.log(jsonData);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/register', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    // Send JSON as body of the request
+    xhr.send(JSON.stringify(jsonData));
+
+    // Handle server response
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        console.log('Data sent successfully!');
+      } else {
+        console.error('Error during data sending!');
+      }
+    };
+
   };
 
   return (
