@@ -18,13 +18,18 @@ const cookieParser = require('cookie-parser')
 app.use(express.json());
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use(express.static(path.join(__dirname,'build')))
+app.use(express.static(path.join(__dirname,'public')))
 
 // this is used in order to render React frontend from backend
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
-
+app.get("/api/v1", (req, res) => {
+    res.json({
+      project: "React and Express Boilerplate",
+      from: "Vanaldito",
+    });
+  });
 //init cookie session
 app.use(cookieSession({
 	name: 'google-auth-session',

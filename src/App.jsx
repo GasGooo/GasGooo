@@ -28,7 +28,7 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/checkout" element={<Checkout />} />
-      <Route path="*" element={<NoPage />} />
+      {/* <Route path="*" element={<NoPage />} /> */}
     </Routes>
   </div>    
   );

@@ -8,7 +8,8 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test-jest": "jest --setupFiles dotenv/config"
+    "test-jest": "jest --setupFiles dotenv/config",
+    "dev": "concurrently 'vite' 'nodemon server.js'"
   },
   "proxy": "http://localhost:3001",
   "author": "Elia Zonta and Lorenzo Pattaro",
