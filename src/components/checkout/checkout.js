@@ -101,17 +101,6 @@ export default function Checkout() {
                                     </RadioGroup>
                                 </FormControl>
                             </Grid>
-
-
-
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox value="allowExtraEmails" color="primary" />
-                                    }
-                                    label="I want to subscribe to GasGoo's newsletter"
-                                />
-                            </Grid>
                         </Grid>
                         <div className="submit-btn">
                         <Button
@@ -123,13 +112,6 @@ export default function Checkout() {
                             Checkout
                         </Button>
                         </div>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </Box>
                 </Box>
                 <Copyright sx={{ mt: 5 }} />

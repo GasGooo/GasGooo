@@ -42,7 +42,7 @@ const Contact = () => {
 
                         <div className="contact_form-div">
                             <label className="contact_form-tag ">Your Message</label>
-                            <textarea name="project" cols= "30" rows="10" className='contact_form-ta' placeholder='Hi Elia ...'></textarea>
+                            <textarea name="project" cols= "30" rows="10" className='contact_form-ta' placeholder='Dear GasGoo team ...'></textarea>
                         </div>
                     </div>
 

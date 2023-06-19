@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,6 +16,7 @@ import Copyright from "../copyright/copyright";
 import GoogleIcon from '@mui/icons-material/Google';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import "./login.css"
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -26,6 +28,28 @@ export default function Login() {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+
+  const [data, setData] = useState({data: []});
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState('');
+
+  const handleClick = async () => {
+    setIsLoading(true)
+    try {
+      const {data} = await axios.get('/auth', {
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      console.log('result is: ', JSON.stringify(data, null, 4));
+
+      setData(data);
+    } catch (err) {
+      setErr(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -72,7 +96,7 @@ export default function Login() {
                     label="Password"
                     type="password"
                     id="password"
-                    autoComplete="new-password"
+                    autoComplete="current-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -121,6 +145,7 @@ export default function Login() {
                   mt: 3, mb: 2
                 }}
                 href="/auth"
+                onClick={handleClick}
               >
                 Sign in
               </Button>
@@ -133,7 +158,7 @@ export default function Login() {
               </Grid>
             </Box>
           </Box>
-          <Copyright sx={{ mt: 5 }} />
+          <Copyright sx={{ mt: 32 }} />
         </Container>
       </ThemeProvider>
     </div>

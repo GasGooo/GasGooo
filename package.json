@@ -12,6 +12,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3001",
   "author": "Elia Zonta and Lorenzo Pattaro",
   "license": "ISC",
   "dependencies": {
