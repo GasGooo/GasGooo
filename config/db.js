@@ -1,6 +1,7 @@
+const MONGO_URI = process.env.DB_URI;
+
 exports.connect = () => {
     const mongoose = require('mongoose').default;
-    const MONGO_URI = process.env.DB_URI;
     // Connecting to the database
     mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,

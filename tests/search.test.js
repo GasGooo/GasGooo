@@ -15,6 +15,7 @@ describe('Search user',  () => {
 });
 
 beforeAll(done => {
+
     done()
 })
 
