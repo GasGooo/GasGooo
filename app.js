@@ -227,10 +227,14 @@ app.get('/user/:email', async (req, res) => {
 app.delete('/user/delete/:email', async (req, res) => {
     try {
         const user = await User.deleteOne({email: req.params.email});
+        if (user.deletedCount === 1) {
         res.status(200).json(user);
+        } else if (user.deletedCount === 0) {
+            res.status(404).send("User not found");
+        }
     } catch (err) {
         // console.log(err);
-        res.status(404).send("User not found");
+        res.status(400).send("Bad request");
     }
 });
 
