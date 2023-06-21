@@ -12,7 +12,7 @@ const cookieSession = require('cookie-session');
 const path = require("path");
 require('./middleware/auth')
 const cookieParser = require('cookie-parser')
-// require("./import/importPump").importPump();
+const cors = require('cors');
 
 
 app.use(express.json());
@@ -77,6 +77,7 @@ app.get('/checkout', (req, res) => {
 
 });
 
+
 app.post('/checkoutPost', async (req, res) => {
     try {
         console.log(req.body);
@@ -121,9 +122,19 @@ app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.join(__dirname,'UI','favicon.ico'));
 });
 
+app.use(cors({
+        origin: 'http://127.0.0.1:5173',
+        optionsSuccessStatus: 200,
+    })
+);
+
 //========= Manual registration ==========
 // Register
 app.post("/register", async (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     try{
 
         console.log(req.body);

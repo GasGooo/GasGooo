@@ -24,17 +24,40 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import "./checkout.css"
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function Checkout() {
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
             email: data.get("email"),
-            password: data.get("password"),
+            cashAmount: data.get("amount"),
+            fuelType: data.get("demo-radio-buttons-group-label"),
+            date: getCurrentDate()
         });
+
+        let jsonData = {};
+
+        jsonData =  {
+            email: data.get("email"),
+            cashAmount: data.get("amount"),
+            fuelType: data.get("radio-buttons-group"),
+            date: getCurrentDate()
+        }
+
+        console.log(jsonData);
+
+        let res = await axios
+            .post('//127.0.0.1:10001/checkoutPost', jsonData)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     };
 
     return (
@@ -119,4 +142,14 @@ export default function Checkout() {
         </ThemeProvider>
         </div>
     );
+}
+
+function getCurrentDate(separator='-'){
+
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    return `${year}${separator}${month<10?`0${month}`:`${month}`}${separator}${date}`
 }

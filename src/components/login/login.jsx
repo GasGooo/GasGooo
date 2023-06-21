@@ -21,13 +21,32 @@ import axios from "axios";
 const theme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    let jsonData = {};
+
+    jsonData =  {
+      email: data.get("email"),
+      password: data.get("password"),
+    }
+
+    console.log(jsonData);
+
+    let res = await axios
+        .post('//127.0.0.1:10001/login', jsonData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
   };
 
   const [data, setData] = useState({data: []});

@@ -19,11 +19,12 @@ import Copyright from "../copyright/copyright";
 import { DatePicker } from "@mui/x-date-pickers";
 import GoogleIcon from '@mui/icons-material/Google';
 import "./register.css"
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function Register() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
@@ -36,33 +37,36 @@ export default function Register() {
     });
 
     const formData = data;
-    const jsonData = {};
+    let jsonData = {};
 
-    // Convert FormData object to JSON
-    for (let [key, value] of formData.entries()) {
-      jsonData[key] = value;
-    }
+    jsonData =  {
+      email: data.get("email"),
+      password: data.get("password"),
+      name: data.get("firstName"),
+      surname: data.get("lastName"),
+      address: data.get("address"),
+      date: data.get("Birthdate"),
+    };
+
+
 
     console.log(jsonData);
 
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/register', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
 
-    // Send JSON as body of the request
-    xhr.send(JSON.stringify(jsonData));
 
-    // Handle server response
+    let res = await axios
+        .post('//127.0.0.1:10001/register', jsonData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
 
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        console.log('Data sent successfully!');
-      } else {
-        console.error('Error during data sending!');
-      }
-    };
+
 
   };
+
 
   return (
     <div className="container">
