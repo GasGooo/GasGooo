@@ -55,7 +55,7 @@ export default function Register() {
 
 
     let res = await axios
-        .post('https://gasgoov3.onrender.com/register', jsonData)
+        .post('http://127.0.0.1:10001/register', jsonData)
         .then((res) => {
           console.log(res);
         })

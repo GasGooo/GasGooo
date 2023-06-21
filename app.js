@@ -123,7 +123,7 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.use(cors({
-        origin: 'https://gasgoo.onrender.com',
+        origin: 'http://127.0.0.1:5173',
         optionsSuccessStatus: 200,
     })
 );
