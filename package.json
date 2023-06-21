@@ -9,7 +9,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test-jest": "jest --setupFiles dotenv/config",
-    "dev": "nodemon server.js"
+    "dev": "vite"
   },
   "proxy": "http://localhost:3001",
   "author": "Elia Zonta and Lorenzo Pattaro",
