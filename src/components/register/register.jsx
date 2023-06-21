@@ -18,21 +18,58 @@ import { createTheme, ThemeProvider} from "@mui/material/styles";
 import Copyright from "../copyright/copyright";
 import { DatePicker } from "@mui/x-date-pickers";
 import GoogleIcon from '@mui/icons-material/Google';
-
+import "./register.css"
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function Register() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
+      firstname: data.get("firstName"),
+      lastname: data.get("lastName"),
+      address: data.get("address"),
+      date: data.get("Birthdate"),
     });
+
+    const formData = data;
+    let jsonData = {};
+
+    jsonData =  {
+      email: data.get("email"),
+      password: data.get("password"),
+      name: data.get("firstName"),
+      surname: data.get("lastName"),
+      address: data.get("address"),
+      date: data.get("Birthdate"),
+    };
+
+
+
+    console.log(jsonData);
+
+
+
+    let res = await axios
+        .post('https://gasgoov3.onrender.com/register', jsonData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+
+
   };
 
+
   return (
+    <div className="container">
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -44,7 +81,7 @@ export default function Register() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#0C317A" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -66,6 +103,7 @@ export default function Register() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -96,7 +134,6 @@ export default function Register() {
                   fullWidth
                   id="firstName"
                   label="Address"
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
@@ -122,7 +159,13 @@ export default function Register() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                    <Checkbox 
+                    sx={{
+                      color: '#8BACAA',
+                      ":hover": {
+                        color: '#E76161',
+                      },
+                    }}/>
                   }
                   label="I understand GasGoo is super cool"
                 />
@@ -132,7 +175,14 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                backgroundColor: '#8BACAA',
+                ":hover": {
+                  backgroundColor: '#E76161',
+
+                },
+                mt: 3, mb: 2,
+              }}
             >
               Sign Up
             </Button>
@@ -141,13 +191,21 @@ export default function Register() {
               fullWidth
               variant="contained"
               startIcon={<GoogleIcon />}
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                backgroundColor: '#8BACAA',
+                ":hover": {
+                  backgroundColor: '#E76161',
+
+                },
+                mt: 3, mb: 2,
+              }}
+              href="/auth"
             >
                 Sign in 
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -157,5 +215,6 @@ export default function Register() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

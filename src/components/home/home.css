@@ -4,12 +4,12 @@
     flex-direction: column;
     font-family: var(--body-font);
     background-color: var(--first-color);
-    height: 100%;
     align-items: center;
-    row-gap: 20%;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
 }
 .title{
-    padding-top: 5%;
+    margin-top: 10%;
     font-size: var(--h1-font-size);
 }
 .subtitle{

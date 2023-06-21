@@ -1,6 +1,5 @@
 /* Gooogle Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;700;800&display=swap');
-
 /* VARIABLE CSS */
 :root {
   --header-heigth : 3rem;
@@ -18,9 +17,9 @@
 /* color palettes : https://colorhunt.co/ */
 /*https://colorhunt.co/palette/ff9393ff6767ff34340c317a*/
   --first-color : #FF9393;
-  --second-color : #eb635d;
-  --third-color : #FF3434;
-  --fourth-color : #0C317A;
+  --second-color : #E76161;
+  --third-color : #B04759;
+  --fourth-color : #8BACAA;
 
 /*========= FONTS & TYPOPGRAPHY ==================*/
 --body-font : 'Montserrat', sans-serif;

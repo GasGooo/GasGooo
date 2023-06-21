@@ -1,5 +1,4 @@
 .container{
-    width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -8,11 +7,6 @@
     height: 100%;
     align-items: center;
     row-gap: 20%;
-    padding: 10% 0 10% 0;
-}
-.bg{
-    z-index: -99;
-    background-color: aquamarine;
 }
 .title{
     padding-top: 5%;
@@ -40,11 +34,4 @@
     height: 4.5rem;
     color: white;
     background-color: var(--third-color);
-}
-.description{
-    font-size: var(--h3-font-size);
-    color: var(--title-color);
-}
-.description > em {
-    color: var(--body-color);
 }

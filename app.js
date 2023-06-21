@@ -12,15 +12,25 @@ const cookieSession = require('cookie-session');
 const path = require("path");
 require('./middleware/auth')
 const cookieParser = require('cookie-parser')
-// require("./import/importPump").importPump();
+const cors = require('cors');
 
 
 app.use(express.json());
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use(express.static(path.join(__dirname,'UI')))
+app.use(express.static(path.join(__dirname,'public')))
 
-
+// this is used in order to render React frontend from backend
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+app.get("/api/v1", (req, res) => {
+    res.json({
+      project: "React and Express Boilerplate",
+      from: "Vanaldito",
+    });
+  });
+//init cookie session
 app.use(cookieSession({
 	name: 'google-auth-session',
 	keys: ['key1', 'key2']
@@ -39,7 +49,6 @@ app.get( '/auth/callback',
 		successRedirect: '/auth/callback/success',
 		failureRedirect: '/auth/callback/failure'
 }));
-
 
 // Google Auth Success
 app.get('/auth/callback/success' , (req , res) => {
@@ -67,6 +76,7 @@ app.get('/checkout', (req, res) => {
     res.sendFile(path.join(__dirname,'UI','checkout.html'));
 
 });
+
 
 app.post('/checkoutPost', async (req, res) => {
     try {
@@ -112,9 +122,19 @@ app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.join(__dirname,'UI','favicon.ico'));
 });
 
+app.use(cors({
+        origin: 'https://gasgoo.onrender.com',
+        optionsSuccessStatus: 200,
+    })
+);
+
 //========= Manual registration ==========
 // Register
 app.post("/register", async (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
     try{
 
         console.log(req.body);

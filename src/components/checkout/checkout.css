@@ -1,0 +1,7 @@
+.container{
+    background-color: var(--first-color);
+}
+
+.submit-btn{
+    height: auto;
+}
