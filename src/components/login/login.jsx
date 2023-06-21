@@ -39,7 +39,7 @@ export default function Login() {
     console.log(jsonData);
 
     let res = await axios
-        .post('//127.0.0.1:10001/login', jsonData)
+        .post('https://gasgoov3.onrender.com/login', jsonData)
         .then((res) => {
           console.log(res);
         })
