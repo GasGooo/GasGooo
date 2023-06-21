@@ -18,6 +18,6 @@ npm i
 npm run dev  
 ```
 
-4. your local istance should be available at [link](http://localhost:10001)
+4. your local istance should be available at [link](http://localhost:5173)
 or open
-> http://localhost:10001
+> http://localhost:5173
